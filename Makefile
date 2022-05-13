@@ -1,15 +1,15 @@
 # https://www.gnu.org/software/make/manual/make.html
 PATH := ./env/bin:${PATH}
-PY := python3
+PY :=  $(VIRTUAL_ENV)/bin/python3
 
 include .env.dev
 export
 
-SRC := ./src
-DIST := ./dist
-BUILD := ./build
+SRC := src
+DIST := dist
+BUILD := build
 
-.PHONY: test all dev clean dev pyserve $(SRC) $(DIST) $(BUILD)
+.PHONY: env test all dev clean dev pyserve $(SRC) $(DIST) $(BUILD)
 
 PYPIU = mhariri
 PYPIP = password
@@ -35,13 +35,13 @@ docker-up:
 docker-down:
 		docker compose -p $(PROJECT) -f ./config/compose.yaml down
 
-clean: $(DIST) $(BUILD) 
-		rm -r $(DIST)/* $(BUILD)/*
+clean:
+		rm -rf ./$(DIST)/* ./$(BUILD)/*
 
 clcache: 
-		rm -r __pycache__
+		rm -r ./__pycache__
 
-env:
+env: 
 		$(PY) -m venv env
 
 check:
@@ -55,7 +55,6 @@ test:
 
 test-os:
 		$(PY) -c 'import sys;print(sys.platform)'
-		
 
 pi: 
 		$(PY) -m pip install $(filter-out $@,$(MAKECMDGOALS))
@@ -79,10 +78,8 @@ preview:
 preview2:
 		twine upload  --config-file .pypirc -r testpypi dist/*  --verbose 
 
-
-
 publish:
-		# $(PY) -m pip install --upgrade twine
+		$(PY) -m pip install --upgrade twine
 		$(PY) -m twine upload --config-file .pypirc --repository testpypi dist/* --verbose  
 
 
