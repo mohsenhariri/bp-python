@@ -1,15 +1,23 @@
-# bp-python
+# Python Template
 A [simple] [general-purpose] Python boilerplate.
 
 
-make env
+### Bootstrap
 
-source env/bin/activate
+```
+    make env
+```
+```
+    source env/bin/activate
+```
+```
+    make check
+```
+```
+    make test
+```
 
-make check
-
-make test
-
-example:
-
-make piu numpy matplotlib scipy
+### Install a package
+```
+    make piu numpy matplotlib scipy
+```
