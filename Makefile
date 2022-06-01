@@ -82,7 +82,13 @@ publish:
 		$(PY) -m pip install --upgrade twine
 		$(PY) -m twine upload --config-file .pypirc --repository testpypi dist/* --verbose  
 
+pylint:
+		pylint --rcfile .pylintrc.dev $(SRC)
+
+pylint-prod:
+		pylint --rcfile .pylintrc.prod $(SRC)
+
+
 
 %: # https://www.gnu.org/software/make/manual/make.html#Automatic-Variables 
 		@:
-
