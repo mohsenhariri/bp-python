@@ -88,6 +88,8 @@ pylint:
 pylint-prod:
 		pylint --rcfile .pylintrc.prod $(SRC)
 
+format:
+		black $(SRC)
 
 
 %: # https://www.gnu.org/software/make/manual/make.html#Automatic-Variables 
