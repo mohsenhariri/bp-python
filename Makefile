@@ -98,7 +98,7 @@ type-prod:
 		mypy --config-file .mypy.ini.prod
 
 g-commit: format type pylint
-		git commit -m $(filter-out $@,$(MAKECMDGOALS))
+		git commit -m "$(filter-out $@,$(MAKECMDGOALS))"
 
 g-log:
 		git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit

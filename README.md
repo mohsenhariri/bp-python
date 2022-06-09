@@ -31,3 +31,16 @@ A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 - Linter: Pylint
 - Formatter: Black
 - CI: GitHub Actions
+
+
+### ToDo
+https://alimbekov.com/en/simple-steps-to-make-your-python-code-better/
+- [ ] MyPy https://mypy.readthedocs.io/en/stable/config_file.html
+- [x] git hooks
+- [x] Earth (Orbit/Moon)
+- [x] Mars
+- [ ] Jupiter
+- [ ] Saturn
+- [ ] Uranus
+- [ ] Neptune
+- [ ] Comet Haley
