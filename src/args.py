@@ -1,8 +1,9 @@
-# import argparse
 
-# parser = argparse.ArgumentParser(description="URL of file or folder")
+import argparse
 
-# parser.add_argument("-id", type=str, default=None, metavar="N", help="URL")
-# id = parser.parse_args().id
+parser = argparse.ArgumentParser(description="URL of file or folder")
 
-# print(id)
+parser.add_argument("-id", type=str, default=None, metavar="N", help="URL")
+id = parser.parse_args().id
+
+print()

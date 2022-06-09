@@ -96,7 +96,8 @@ type:
 
 type-prod:
 		mypy --config-file .mypy.ini.prod
-
+		
+#  make g-commit "fixed: typo"
 g-commit: format type pylint
 		git commit -m "$(filter-out $@,$(MAKECMDGOALS))"
 
