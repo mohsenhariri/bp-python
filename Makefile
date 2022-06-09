@@ -91,6 +91,12 @@ pylint-prod:
 format:
 		black $(SRC)
 
+type:
+		mypy
+
+type-prod:
+		mypy --config-file .mypy.ini.prod
+
 
 %: # https://www.gnu.org/software/make/manual/make.html#Automatic-Variables 
 		@:
