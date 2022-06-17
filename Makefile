@@ -91,6 +91,9 @@ pylint-prod:
 format:
 		black $(SRC)
 
+sort:
+		isort $(SRC)
+		
 type:
 		mypy
 
