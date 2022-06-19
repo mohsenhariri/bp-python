@@ -4,7 +4,8 @@
 .pypirc.test
 dist/*
 
-bookmarks.md
+RoadMap.md
+other
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

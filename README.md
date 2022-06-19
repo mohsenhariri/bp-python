@@ -2,6 +2,15 @@
 
 A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 
+# How to use
+
+- Linux and Mac
+  Use GCC Makefile
+
+- Install Makefile
+  https://community.chocolatey.org/packages/make
+  http://www.cygwin.com/
+
 ### Bootstrap
 
 ```
@@ -34,8 +43,19 @@ A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 
 ### ToDo
 
-- [x] Formatter: Black
+- [x] Formatter: Black + isort
 - [x] Type checker: MyPy
 - [x] Linter: Pylint
 - [x] GitHub Actions
-- [ ] Git Hooks
+- [x] Git Hooks
+
+### Git
+
+Git hooks are available in ./scripts/.githooks
+
+```
+    chmod +x ./scripts/.githooks/script
+
+    git config core.hooksPath ./scripts/.githooks
+
+```
