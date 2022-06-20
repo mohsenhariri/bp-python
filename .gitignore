@@ -3,6 +3,7 @@
 .pypirc
 .pypirc.test
 dist/*
+.poetry
 
 RoadMap.md
 other

@@ -1,6 +1,6 @@
 # from pprint import pprint as print
 
-import numpy.typing as npt
+# import numpy.typing as npt
 
 
 def det(arr):

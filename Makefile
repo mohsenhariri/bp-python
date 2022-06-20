@@ -68,19 +68,59 @@ pia: requirements.txt
 		$(PY) -m pip install -r requirements.txt
 
 
-build:
+pkg-build:
 		$(PY) -m pip install --upgrade build
 		$(PY) -m build
 
-preview:
-		twine upload -r testpypi -u $(PYPIU) -p $(PYPIP) --repository-url https://test.pypi.org/legacy/ dist/*  --verbose 
+pkg-install-editable:
+		$(PY) -m pip install -e .
 
-preview2:
-		twine upload  --config-file .pypirc -r testpypi dist/*  --verbose 
+pkg-install:
+		$(PY) -m pip install .
 
-publish:
+pkg-check:
 		$(PY) -m pip install --upgrade twine
-		$(PY) -m twine upload --config-file .pypirc --repository testpypi dist/* --verbose  
+		twine check dist/*
+
+pkg-publish-test:
+		twine upload --config-file .pypirc.test -r testpypi dist/*  --verbose 
+
+pkg-publish:
+		twine upload --config-file .pypirc dist/* --verbose  
+
+pkg-flit-init:
+		$(PY) -m pip install --upgrade flit
+		if [ -f "pyproject.toml" ] ; then mv pyproject.toml pyproject.backup ;  fi
+		flit init
+
+pkg-flit-build:
+		flit build
+
+# pkg-flit-check:
+# 		flit install 
+
+pkg-flit-publish-test:
+		flit publish --repository testpypi
+
+pkg-flit-publish:
+		flit publish
+
+pkg-poetry-init:
+		if [ ! -d "./.poetry" ]; then mkdir ./poetry; fi
+		wget -P ./.poetry https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py
+		export POETRY_HOME=./.poetry && python ./.poetry/get-poetry.py --no-modify-path
+		if [ -f "pyproject.toml" ] ; then mv pyproject.toml pyproject.backup ;  fi
+		./.poetry/bin/poetry init
+
+pkg-poetry-build:
+		poetry build
+
+pkg-poetry-publish-test:
+		poetry publish --repository testpypi
+
+pkg-poetry-publish:
+		poetry publish
+
 
 pylint:
 		pylint --rcfile .pylintrc.dev $(SRC)

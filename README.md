@@ -8,7 +8,9 @@ A [simple] [general-purpose] Python template 🐍🚀🎉🦕
   Use GCC Makefile
 
 - Install Makefile
+
   https://community.chocolatey.org/packages/make
+
   http://www.cygwin.com/
 
 ### Bootstrap
@@ -48,6 +50,7 @@ A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 - [x] Linter: Pylint
 - [x] GitHub Actions
 - [x] Git Hooks
+- [X] PyPI Publish
 
 ### Git
 
