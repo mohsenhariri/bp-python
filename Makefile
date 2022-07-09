@@ -34,7 +34,10 @@ docker-down:
 		docker compose -p $(PROJECT) -f ./config/compose.yaml down
 
 docker-build:
-		docker build -t mh/$(PROJECT):$(VERSION) .
+		docker build -t $(USER)/$(PROJECT):$(VERSION) .
+
+docker-run:
+		 docker container run --name $(PROJECT) -it  $(USER)/$(PROJECT):$(VERSION) /bin/bash
 
 clean:
 		rm -rf ./$(DIST)/* ./$(BUILD)/*

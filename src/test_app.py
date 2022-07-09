@@ -1,7 +1,7 @@
 import unittest
 
-class TestCalc(unittest.TestCase):
 
+class TestCalc(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         # Database connection
@@ -21,6 +21,7 @@ class TestCalc(unittest.TestCase):
 
     def test_app(self):
         pass
+
 
 if __name__ == "__main__":
     unittest.main()
