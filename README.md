@@ -50,7 +50,9 @@ A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 - [x] Linter: Pylint
 - [x] GitHub Actions
 - [x] Git Hooks
-- [X] PyPI Publish
+- [x] PyPI Publish
+- [x] Flit
+- [x] Poetry
 
 ### Git
 

@@ -6,21 +6,17 @@ requires = ["setuptools>=42"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "template"
+authors = [
+  {name = "Mohsen Hariri", email = "mhariri68@gmail.com"},
+]
+dependencies = []
 description = "My package description"
-readme = "README.rst"
 keywords = ["Boilerplate", "Template"]
-license = {text = "BSD 3-Clause License"}
-authors = ["Mohsen Hariri <mhariri68@gmail.com>"]
-# classifiers = [
-#     "Framework :: Django",
-#     "Programming Language :: Python :: 3",
-# ]
-# dependencies = [
-#     "requests",
-#     'importlib-metadata; python_version<"3.8"',
-# ]
-dynamic = ["version"]
+license = {text = "GPL-3.0 License"}
+name = "a-random-name-1"
+readme = "README.rst"
+requires-python = ">=3.9"
+version = "0.0.1"
 
 [tool.isort]
 profile = "black"
