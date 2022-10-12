@@ -1,5 +1,8 @@
 # https://www.gnu.org/software/make/manual/make.html
-PATH := ./env/bin:${PATH}
+PYTHON := /media/mohsen/ssd500/compilers/py3_10_7/bin/python3.10
+DOCKER := /usr/bin/docker 
+
+PATH := $(VIRTUAL_ENV)/bin:$(PATH)
 PY :=  $(VIRTUAL_ENV)/bin/python3
 
 include .env.dev
@@ -28,16 +31,16 @@ cert: # HTTPS server
 		openssl req -x509 -nodes -newkey rsa:4096 -out ./certs/cert.pem -keyout ./certs/key.pem -sha256 -days 365 ;fi
 
 docker-up:
-		docker compose -p $(PROJECT) --env-file ./config/.env.docker -f ./config/compose.yaml up -d
+		$(DOCKER) compose -p $(PROJECT) --env-file ./config/.env.docker -f ./config/compose.yaml up -d
 
 docker-down:
-		docker compose -p $(PROJECT) -f ./config/compose.yaml down
+		$(DOCKER) compose -p $(PROJECT) -f ./config/compose.yaml down
 
 docker-build:
-		docker build -t $(USER)/$(PROJECT):$(VERSION) .
+		$(DOCKER) build -t $(USER)/$(PROJECT):$(VERSION) .
 
 docker-run:
-		 docker container run --name $(PROJECT) -it  $(USER)/$(PROJECT):$(VERSION) /bin/bash
+		 $(DOCKER) container run --name $(PROJECT) -it  $(USER)/$(PROJECT):$(VERSION) /bin/bash
 
 clean:
 		rm -rf ./$(DIST)/* ./$(BUILD)/*
@@ -46,7 +49,7 @@ clcache:
 		rm -r ./__pycache__
 
 env: 
-		$(PY) -m venv env
+		$(PYTHON) -m venv env
 
 check:
 		$(PY) -m ensurepip --default-pip
