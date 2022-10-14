@@ -7,14 +7,16 @@ DOCKER := /usr/bin/docker
 PATH := $(VIRTUAL_ENV)/bin:$(PATH)
 PY :=  $(VIRTUAL_ENV)/bin/python
 
-PYTHONPATH := $(SRC):$(PYTHONPATH)
 
 include .env.dev
 export
 
-SRC := src
+SRC := pkg
 DIST := dist
 BUILD := build
+
+PYTHONPATH := $(SRC):$(PYTHONPATH)
+
 
 .PHONY: env test all dev clean dev pyserve $(SRC) $(DIST) $(BUILD)
 .DEFAULT_GOAL := test
