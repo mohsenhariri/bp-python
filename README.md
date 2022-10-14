@@ -2,6 +2,8 @@
 
 A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 
+https://pypi.org/project/jigar/
+
 # How to use
 
 - Linux and Mac
