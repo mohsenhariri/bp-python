@@ -5,20 +5,22 @@ export
 VERSION := $(shell cat VERSION)
 PROJECT := $(shell basename $(CURDIR))
 
+# PYTHON := /usr/bin/python3
 # PYTHON := /media/mohsen/ssd500/compilers/py3_10_7/bin/python3.10
 PYTHON := /home/mohsen/compiler/python/3.11.2/bin/python3.11
+
 DOCKER := /usr/bin/docker 
 
 PATH := $(VIRTUAL_ENV)/bin:$(PATH)
-PY :=  $(VIRTUAL_ENV)/bin/python3
+PY :=  $(VIRTUAL_ENV)/bin/python
 
 ENV_NAME := $(shell $(PYTHON) -c 'import sys;print(f"env_{sys.platform}_{sys.version_info.major}.{sys.version_info.minor}")')
 
-SRC := src
+SRC := pkg
 DIST := dist
 BUILD := build
 
-.PHONY: env test all dev clean dev pyserve $(SRC) $(DIST) $(BUILD)
+PYTHONPATH := $(SRC):$(PYTHONPATH)
 
 ifeq ($(SSL), true)
 PROTOCOL := HTTPS
@@ -26,6 +28,10 @@ else
 PROTOCOL := HTTP
 endif
 URL := $(PROTOCOL)://$(HOST):$(PORT)
+
+.PHONY: env test all dev clean dev pyserve $(SRC) $(DIST) $(BUILD)
+
+.DEFAULT_GOAL := test
 
 .ONESHELL:
 
@@ -85,7 +91,7 @@ pireq:
 pia: requirements.txt
 		$(PY) -m pip install -r requirements.txt
 
-pkg-build:
+pkg-build: clean
 		$(PY) -m pip install --upgrade build
 		$(PY) -m build
 
@@ -138,7 +144,6 @@ pkg-poetry-publish-test:
 pkg-poetry-publish:
 		poetry publish
 
-
 pylint-dev:
 		pylint --rcfile .pylintrc.dev $(SRC)
 
@@ -172,4 +177,5 @@ g-log:
 unittest:
 		$(PY) -m unittest $(SRC)/test_*.py
 
-
+script-upgrade:
+		./scripts/upgrade_dependencies.sh

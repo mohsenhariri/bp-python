@@ -15,25 +15,25 @@ A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 
 ### Bootstrap
 
-```
+``` bash
     make env
 ```
 
-```
+``` bash
     source env/bin/activate
 ```
 
-```
+``` bash
     make check
 ```
 
-```
+``` bash
     make test
 ```
 
 ### Install a package
 
-```
+``` bash
     make piu numpy matplotlib scipy
 ```
 
@@ -58,7 +58,7 @@ A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 
 Git hooks are available in ./scripts/.githooks
 
-```
+``` bash
     chmod +x ./scripts/.githooks/script
 
     git config core.hooksPath ./scripts/.githooks
