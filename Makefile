@@ -56,9 +56,11 @@ clean:
 clcache: 
 		rm -r ./__pycache__
 
-env: .gitignore
+env: .gitignore exclude.lst .dockerignore
 		$(PYTHON) -m venv $(ENV_NAME)
 		@echo $(ENV_NAME) >> .gitignore
+		@echo $(ENV_NAME) >> exclude.lst
+		@echo $(ENV_NAME) >> .dockerignore
 
 check:
 		$(PY) -m ensurepip --default-pip
