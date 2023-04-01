@@ -1,12 +1,18 @@
 # https://www.gnu.org/software/make/manual/make.html
-PYTHON := /media/mohsen/ssd500/compilers/py3_10_7/bin/python3.10
+include .env.dev
+export
+
+VERSION := $(shell cat VERSION)
+PROJECT := $(shell basename $(CURDIR))
+
+# PYTHON := /media/mohsen/ssd500/compilers/py3_10_7/bin/python3.10
+PYTHON := /home/mohsen/compiler/python/3.11.2/bin/python3.11
 DOCKER := /usr/bin/docker 
 
 PATH := $(VIRTUAL_ENV)/bin:$(PATH)
 PY :=  $(VIRTUAL_ENV)/bin/python3
 
-include .env.dev
-export
+ENV_NAME := $(shell $(PYTHON) -c 'import sys;print(f"env_{sys.platform}_{sys.version_info.major}.{sys.version_info.minor}")')
 
 SRC := src
 DIST := dist
@@ -20,6 +26,8 @@ else
 PROTOCOL := HTTP
 endif
 URL := $(PROTOCOL)://$(HOST):$(PORT)
+
+.ONESHELL:
 
 %: # https://www.gnu.org/software/make/manual/make.html#Automatic-Variables 
 		@:
@@ -48,8 +56,9 @@ clean:
 clcache: 
 		rm -r ./__pycache__
 
-env: 
-		$(PYTHON) -m venv env
+env: .gitignore
+		$(PYTHON) -m venv $(ENV_NAME)
+		@echo $(ENV_NAME) >> .gitignore
 
 check:
 		$(PY) -m ensurepip --default-pip
@@ -146,6 +155,12 @@ type:
 
 type-prod:
 		mypy --config-file .mypy.ini.prod
+
+g-init:
+		touch .gitignore
+		git init
+		git add .
+		git commit -m "initial commit"
 
 g-commit: format type pylint
 		git commit -m "$(filter-out $@,$(MAKECMDGOALS))"
