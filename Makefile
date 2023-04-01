@@ -67,12 +67,9 @@ check:
 		$(PY) -m pip install --upgrade pip setuptools wheel
 
 test:
-		echo $(PATH)
+		@echo $(PATH)
 		$(PY) --version
 		$(PY) -m pip --version
-
-test-os:
-		$(PY) -c 'import sys;print(sys.platform)'
 
 pi: 
 		$(PY) -m pip install $(filter-out $@,$(MAKECMDGOALS))
@@ -82,9 +79,11 @@ piu:
 		$(PY) -m pip install --upgrade $(filter-out $@,$(MAKECMDGOALS))
 		$(PY) -m pip freeze > requirements.txt
 
+pireq:
+		make piu black isort pylint mypy
+
 pia: requirements.txt
 		$(PY) -m pip install -r requirements.txt
-
 
 pkg-build:
 		$(PY) -m pip install --upgrade build
@@ -140,7 +139,7 @@ pkg-poetry-publish:
 		poetry publish
 
 
-pylint:
+pylint-dev:
 		pylint --rcfile .pylintrc.dev $(SRC)
 
 pylint-prod:
