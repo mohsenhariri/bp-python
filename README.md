@@ -20,7 +20,11 @@ A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 ```
 
 ``` bash
-    source env/bin/activate
+    source env_platform_ver/bin/activate
+```
+
+``` bash
+    make
 ```
 
 ``` bash
@@ -28,7 +32,7 @@ A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 ```
 
 ``` bash
-    make test
+    make pireq
 ```
 
 ### Install a package
