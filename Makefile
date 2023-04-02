@@ -22,6 +22,9 @@ SRC := pkg# just for this template
 # SRC := $(PROJECT)# for a python package
 DIST := dist
 BUILD := build
+# PY_FILES = $(shell find $(SRC) -type f -name '*.py')
+PY_FILES := $(shell find $(SRC) -type f -name '*.py' | grep -v '^.*\/test_.*\.py$$')
+PY_FILES_TEST := $(shell find $(SRC) -type f -name 'test_*.py')
 
 PYTHONPATH := $(SRC):$(PYTHONPATH)
 
@@ -32,7 +35,7 @@ PROTOCOL := HTTP
 endif
 URL := $(PROTOCOL)://$(HOST):$(PORT)
 
-.PHONY: env test all dev clean dev pyserve $(SRC) $(DIST) $(BUILD)
+.PHONY: env test all dev clean dev pyserve gen-commands $(SRC) $(DIST) $(BUILD)
 
 .DEFAULT_GOAL := test
 
@@ -167,3 +170,6 @@ type-prod:
 
 script-upgrade:
 		./scripts/upgrade_dependencies.sh
+
+gen-commands:
+		$(foreach file,$(PY_FILES),$(shell echo "\n$(subst /,-,$(subst $(SRC)/,,$(basename $(file)))):\n\t\t$(PY) $(file)" >> py.make))
