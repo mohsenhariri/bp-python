@@ -2,6 +2,9 @@
 
 A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 
+
+I used this template for [fesenjoon](https://pypi.org/project/fesenjoon/) and [medviz](https://pypi.org/project/medviz/).
+
 # How to use
 
 - Linux and Mac
@@ -68,3 +71,5 @@ Git hooks are available in ./scripts/.githooks
     git config core.hooksPath ./scripts/.githooks
 
 ```
+
+
