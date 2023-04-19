@@ -5,7 +5,7 @@ A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 
 I used this template for [fesenjoon](https://pypi.org/project/fesenjoon/) and [medviz](https://pypi.org/project/medviz/).
 
-# How to use
+## How to use
 
 - Linux and Mac
   Use GCC Makefile
@@ -73,3 +73,40 @@ Git hooks are available in ./scripts/.githooks
 ```
 
 
+## Publish to PyPI
+
+
+1. To build a package, run:
+``` bash
+    make pkg-build
+```
+
+2. To check the build, run:
+``` bash
+    make pkg-check
+```
+
+3. Create `.pypirc` file in the root directory of the project. It should look like this:
+
+``` bash
+    [distutils]
+    index-servers =
+        pypi
+        testpypi
+
+    [pypi]
+    repository: https://upload.pypi.org/legacy/
+    username: <your username>
+    password: <your password>
+
+    [testpypi]
+    repository: https://test.pypi.org/legacy/
+    username: <your username>
+    password: <your password>
+```
+
+4. To publish to PyPI, run:
+
+``` bash
+    make pkg-publish
+```

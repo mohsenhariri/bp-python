@@ -99,10 +99,10 @@ pkg-check:
 		$(PY) -m pip install --upgrade twine
 		twine check dist/*
 
-pkg-publish-test:
+pkg-publish-test: .pypirc.test
 		twine upload --config-file .pypirc.test -r testpypi dist/*  --verbose 
 
-pkg-publish:
+pkg-publish: .pypirc
 		twine upload --config-file .pypirc dist/* --verbose  
 
 pkg-flit-init:
