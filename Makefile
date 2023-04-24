@@ -26,6 +26,8 @@ BUILD := build
 PY_FILES := $(shell find $(SRC) -type f -name '*.py' | grep -v '^.*\/test_.*\.py$$')
 PY_FILES_TEST := $(shell find $(SRC) -type f -name 'test_*.py')
 
+IGNORE_LIST := .gitignore .dockerignore exclude.lst
+
 PYTHONPATH := $(SRC):$(PYTHONPATH)
 
 ifeq ($(SSL), true)
@@ -56,11 +58,15 @@ clean:
 clcache: 
 		rm -r ./__pycache__
 
-env: .gitignore exclude.lst .dockerignore
-		$(PYTHON) -m venv $(ENV_NAME)
-		@echo $(ENV_NAME) >> .gitignore
-		@echo $(ENV_NAME) >> exclude.lst
-		@echo $(ENV_NAME) >> .dockerignore
+env: $(IGNORE_LIST)
+		if [ ! -d $(ENV_NAME) ] ; then \
+			$(PYTHON) -m venv $(ENV_NAME) && \
+			for file in $(IGNORE_LIST); do \
+				if ! grep -q $(ENV_NAME) $$file; then \
+					echo $(ENV_NAME) >> $$file; \
+				fi \
+			done; \
+		fi
 
 check:
 		$(PY) -m ensurepip --default-pip
