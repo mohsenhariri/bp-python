@@ -8,15 +8,15 @@ VERSION := $(shell cat VERSION)
 PROJECT := $(shell basename $(CURDIR))
 
 PYTHON := /usr/bin/python3
-# PYTHON := /media/mohsen/ssd500/compilers/py3_10_7/bin/python3.10
 # PYTHON := /home/mohsen/compiler/python/3.11.2/bin/python3.11
+# PYTHON := /media/storage/compilers/py3_10_7/bin/python3.10
 
 DOCKER := /usr/bin/docker 
 
 PATH := $(VIRTUAL_ENV)/bin:$(PATH)
 PY :=  $(VIRTUAL_ENV)/bin/python
 
-ENV_NAME := $(shell $(PYTHON) -c 'import sys;print(f"env_{sys.platform}_{sys.version_info.major}.{sys.version_info.minor}")')
+ENV_NAME := $(shell $(PYTHON) -c 'import sys;import socket;print(f"env_{socket.gethostname()}_{sys.platform}_{sys.version_info.major}.{sys.version_info.minor}")')
 
 SRC := pkg# just for this template
 # SRC := $(PROJECT)# for a python package

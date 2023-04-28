@@ -86,7 +86,12 @@ Git hooks are available in ./scripts/.githooks
     make pkg-check
 ```
 
-3. Create `.pypirc` file in the root directory of the project. It should look like this:
+3. To install the package locally, run: 
+``` bash
+    make pkg-install
+```
+
+4. Create `.pypirc` file in the root directory of the project. It should look like this:
 
 ``` bash
     [distutils]
