@@ -170,3 +170,6 @@ temp-rm:
 
 gen-commands: temp-rm
 		$(foreach file,$(PY_FILES),$(shell echo "\n$(subst /,-,$(subst $(SRC)/,,$(basename $(file)))):\n\t\t$(PY) $(file)" >> py.make))
+
+backup:
+		tar --exclude-from exclude.lst -czvf /backup/path/$(PROJECT).tar.gz ../$(PROJECT)
