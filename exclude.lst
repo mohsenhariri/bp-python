@@ -1,7 +1,6 @@
 # tar --exclude-from exclude.lst -czvf /home/mohsen/backup/template-python.tar.gz ../template-python/
 env/*
+env_*
 .mypy_cache/*
 .poetry/*
 *.pyc
-env_linux_3.11
-env_linux_3.10

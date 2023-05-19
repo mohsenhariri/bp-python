@@ -22,9 +22,14 @@ SRC := pkg# just for this template
 # SRC := $(PROJECT)# for a python package
 DIST := dist
 BUILD := build
+API := api
+BACKUP_DIR := $(HOME)/backup/$(PROJECT)
+SYNC_DIR := $(HOME)/sync
+
 # PY_FILES = $(shell find $(SRC) -type f -name '*.py')
 PY_FILES := $(shell find $(SRC) -type f -name '*.py' | grep -v '^.*\/test_.*\.py$$')
 PY_FILES_TEST := $(shell find $(SRC) -type f -name 'test_*.py')
+PY_FILES_API := $(shell find $(API) -type f -name '*.py')
 
 IGNORE_LIST := .gitignore .dockerignore exclude.lst
 
@@ -92,6 +97,7 @@ pia: requirements.txt
 		$(PY) -m pip install -r requirements.txt
 
 pkg-build: clean
+		# cp VERSION $(SRC)
 		$(PY) -m pip install --upgrade build
 		$(PY) -m build
 
@@ -165,11 +171,20 @@ type-prod:
 script-upgrade:
 		./scripts/upgrade_dependencies.sh
 
-temp-rm:
-		rm py.make
+clean-commands: py.make api.make
+		head -n 5 py.make > temp.txt && mv temp.txt py.make
+		head -n 3 api.make > temp.txt && mv temp.txt api.make
 
-gen-commands: temp-rm
+gen-commands: clean-commands
 		$(foreach file,$(PY_FILES),$(shell echo "\n$(subst /,-,$(subst $(SRC)/,,$(basename $(file)))):\n\t\t$(PY) $(file)" >> py.make))
+		$(foreach file,$(PY_FILES_API),$(shell echo "\n$(subst /,-,$(subst $(API)/,,$(basename $(file)))):\n\t\t$(PY) $(file)" >> api.make))
 
 backup:
-		tar --exclude-from exclude.lst -czvf /backup/path/$(PROJECT).tar.gz ../$(PROJECT)
+		if [ ! -d "$(BACKUP_DIR)" ]; then mkdir -p $(BACKUP_DIR); fi
+		tar --exclude-from exclude.lst -czvf $(BACKUP_DIR)/$(PROJECT)_$$(date +%Y%m%d_%H-%M-%S).tar.gz ../$(PROJECT)
+
+sync-repos:
+		if [ ! -d "$(SYNC_DIR)" ]; then mkdir -p $(SYNC_DIR); fi
+		rsync -auv --exclude-from=./exclude.lst  . $(SYNC_DIR)/$(PROJECT)
+
+
