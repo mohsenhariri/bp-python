@@ -155,6 +155,10 @@ pkg-poetry-publish-test:
 pkg-poetry-publish:
 		poetry publish
 
+lint:
+		ruff check $(SRC)
+
+
 pylint-dev:
 		pylint --rcfile .pylintrc.dev $(SRC)
 
@@ -191,5 +195,6 @@ backup:
 sync-repos:
 		if [ ! -d "$(SYNC_DIR)" ]; then mkdir -p $(SYNC_DIR); fi
 		rsync -auv --exclude-from=./exclude.lst  . $(SYNC_DIR)/$(PROJECT)
+
 
 

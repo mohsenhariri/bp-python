@@ -38,6 +38,8 @@ line-length = 88
 target-version = ["py38"]
 
 [tool.ruff]
+src = ["pkg"]
+target-version = "py38"
 
 [tool.isort]
 profile = "black"
