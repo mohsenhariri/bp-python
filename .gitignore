@@ -8,7 +8,6 @@ dist/*
 RoadMap.md
 other
 *_local.*
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -115,7 +114,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
-env/
+env_*
 venv/
 ENV/
 env.bak/
@@ -138,9 +137,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-env_linux_3.9
-env_linux_3.11
 
-env_linux_3.10
-env_fes-local_linux_3.11
-env_mohsen-invent_linux_3.10

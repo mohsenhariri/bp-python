@@ -3,7 +3,6 @@ __pycache__
 *.pyo
 *.pyd
 .Python
-env
 pip-log.txt
 pip-delete-this-directory.txt
 .tox
@@ -18,7 +17,6 @@ coverage.xml
 .mypy_cache
 .pytest_cache
 .hypothesis
-
 .git*
 .poetry
 .vscode
@@ -31,5 +29,6 @@ Dockerfile
 scripts
 config
 other
-env_linux_3.11
-env_linux_3.10
+env_*
+*_local.*
+
