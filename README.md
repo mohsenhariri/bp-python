@@ -18,8 +18,16 @@ I used this template for [fesenjoon](https://pypi.org/project/fesenjoon/) and [m
 
 ### Bootstrap
 
+To use env in another directory:
+
 ``` bash
     make env
+```
+
+To use env here (local directory)
+
+``` bash
+    make env-local
 ```
 
 ``` bash
@@ -54,6 +62,7 @@ I used this template for [fesenjoon](https://pypi.org/project/fesenjoon/) and [m
 
 - [x] Formatter: Black + isort
 - [x] Type checker: MyPy
+- [x] Linter: Ruff
 - [x] Linter: Pylint
 - [x] GitHub Actions
 - [x] Git Hooks
