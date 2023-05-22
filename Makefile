@@ -16,6 +16,7 @@ DOCKER := /usr/bin/docker
 PATH := $(VIRTUAL_ENV)/bin:$(PATH)
 PY :=  $(VIRTUAL_ENV)/bin/python
 
+ENV_PATH := $(HOME)/envs/github/$(PROJECT)
 ENV_NAME := $(shell $(PYTHON) -c 'import sys;import socket;print(f"env_{socket.gethostname()}_{sys.platform}_{sys.version_info.major}.{sys.version_info.minor}")')
 
 SRC := pkg# just for this template
@@ -63,7 +64,7 @@ clean:
 clcache: 
 		rm -r ./__pycache__
 
-env: $(IGNORE_LIST)
+env-local: $(IGNORE_LIST)
 		if [ ! -d $(ENV_NAME) ] ; then \
 			$(PYTHON) -m venv $(ENV_NAME) && \
 			for file in $(IGNORE_LIST); do \
@@ -72,6 +73,10 @@ env: $(IGNORE_LIST)
 				fi \
 			done; \
 		fi
+
+env:
+		if [ ! -d $(ENV_PATH)/$(ENV_NAME) ] ; then \
+			$(PYTHON) -m venv $(ENV_PATH)/$(ENV_NAME); fi
 
 check:
 		$(PY) -m ensurepip --default-pip
