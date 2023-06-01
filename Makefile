@@ -13,11 +13,17 @@ PYTHON := /usr/bin/python3
 
 DOCKER := /usr/bin/docker 
 
-PATH := $(VIRTUAL_ENV)/bin:$(PATH)
-PY :=  $(VIRTUAL_ENV)/bin/python
-
 ENV_PATH := $(HOME)/envs/github/$(PROJECT)
 ENV_NAME := $(shell $(PYTHON) -c 'import sys;import socket;print(f"env_{socket.gethostname()}_{sys.platform}_{sys.version_info.major}.{sys.version_info.minor}")')
+
+ifeq ($(strip $(VIRTUAL_ENV)),)
+	PATH := $(ENV_PATH)/$(ENV_NAME)/bin:$(PATH)
+    PY := $(ENV_PATH)/$(ENV_NAME)/bin/python
+else
+	PATH := $(VIRTUAL_ENV)/bin:$(PATH)
+	PY := $(VIRTUAL_ENV)/bin/python
+endif
+
 
 SRC := pkg# just for this template
 # SRC := $(PROJECT)# for a python package
@@ -25,7 +31,7 @@ DIST := dist
 BUILD := build
 API := api
 BACKUP_DIR := $(HOME)/backup/$(PROJECT)
-SYNC_DIR := $(HOME)/sync
+SYNC_DIR := $(HOME)/sync/git
 
 # PY_FILES = $(shell find $(SRC) -type f -name '*.py')
 PY_FILES := $(shell find $(SRC) -type f -name '*.py' | grep -v '^.*\/test_.*\.py$$')
