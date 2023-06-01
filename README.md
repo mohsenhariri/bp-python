@@ -24,6 +24,8 @@ To use env in another directory:
     make env
 ```
 
+There is no need to active virtual environment when the `PY` is used from Makefile.
+
 To use env here (local directory)
 
 ``` bash
@@ -69,6 +71,7 @@ To use env here (local directory)
 - [x] PyPI Publish
 - [x] Flit
 - [x] Poetry
+- [x] Ruff 
 
 ### Git
 
