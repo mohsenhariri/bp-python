@@ -24,7 +24,7 @@ To use env in another directory:
     make env
 ```
 
-There is no need to active virtual environment when the `PY` is used from Makefile.
+There is no need to active virtual environment when the `PY` command is used from Makefile.
 
 To use env here (local directory)
 
@@ -36,13 +36,25 @@ To use env here (local directory)
     source env_platform_ver/bin/activate
 ```
 
+Set a name for the package:
+
+```bash
+    make init newName
+```
+
+Check Python and pip version
+
 ``` bash
     make
 ```
 
+Update pip and build tools
+
 ``` bash
     make check
 ```
+
+Install the requirements
 
 ``` bash
     make pireq

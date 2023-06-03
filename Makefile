@@ -4,6 +4,7 @@ export
 
 include *.make
 
+WORKDIR := $(shell pwd)
 VERSION := $(shell cat VERSION)
 PROJECT := $(shell basename $(CURDIR))
 
@@ -57,7 +58,10 @@ URL := $(PROTOCOL)://$(HOST):$(PORT)
 
 %: # https://www.gnu.org/software/make/manual/make.html#Automatic-Variables 
 		@:
-		
+
+init:
+		./scripts/init  $(filter-out $@,$(MAKECMDGOALS))
+
 cert: # HTTPS server
 		if [ ! -d "./certs" ]; then mkdir ./certs; fi
 		if [ -f "./certs/openssl.conf" ] ; then \
@@ -185,6 +189,10 @@ type-prod:
 
 script-upgrade:
 		./scripts/upgrade_dependencies.sh
+
+
+set-dataset:
+		chmod -R a+rx dataset
 
 clean-commands: py.make api.make
 		head -n 5 py.make > temp.txt && mv temp.txt py.make
