@@ -132,6 +132,9 @@ pkg-publish-test: .pypirc.test
 pkg-publish: .pypirc
 		twine upload --config-file .pypirc dist/* --verbose  
 
+pkg-publish-gh: 
+		twine upload  dist/* --verbose  
+
 pkg-flit-init:
 		$(PY) -m pip install --upgrade flit
 		if [ -f "pyproject.toml" ] ; then mv pyproject.toml pyproject.backup ;  fi
