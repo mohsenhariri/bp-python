@@ -2,6 +2,7 @@ __pycache__
 *.pyc
 *.pyo
 *.pyd
+.ruff_cache
 .Python
 pip-log.txt
 pip-delete-this-directory.txt
