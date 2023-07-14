@@ -31,8 +31,7 @@ SRC := pkg# just for this template
 DIST := dist
 BUILD := build
 API := api
-BACKUP_DIR := $(HOME)/backup/$(PROJECT)
-SYNC_DIR := $(HOME)/sync/git
+
 
 # PY_FILES = $(shell find $(SRC) -type f -name '*.py')
 PY_FILES := $(shell find $(SRC) -type f -name '*.py' | grep -v '^.*\/test_.*\.py$$')
@@ -204,14 +203,5 @@ clean-commands: py.make api.make
 gen-commands: clean-commands
 		$(foreach file,$(PY_FILES),$(shell echo "\n$(subst /,-,$(subst $(SRC)/,,$(basename $(file)))):\n\t\t$(PY) $(file)" >> py.make))
 		$(foreach file,$(PY_FILES_API),$(shell echo "\n$(subst /,-,$(subst $(API)/,,$(basename $(file)))):\n\t\t$(PY) $(file)" >> api.make))
-
-backup:
-		if [ ! -d "$(BACKUP_DIR)" ]; then mkdir -p $(BACKUP_DIR); fi
-		tar --exclude-from exclude.lst -czvf $(BACKUP_DIR)/$(PROJECT)_$$(date +%Y%m%d_%H-%M-%S).tar.gz ../$(PROJECT)
-
-sync-repos:
-		if [ ! -d "$(SYNC_DIR)" ]; then mkdir -p $(SYNC_DIR); fi
-		rsync -auv --exclude-from=./exclude.lst  . $(SYNC_DIR)/$(PROJECT)
-
 
 
