@@ -9,12 +9,9 @@ VERSION := $(shell cat VERSION)
 PROJECT := $(shell basename $(CURDIR))
 
 PYTHON := /usr/bin/python3
-# PYTHON := /home/mohsen/compiler/python/3.11.2/bin/python3.11
-# PYTHON := /media/storage/compilers/py3_10_7/bin/python3.10
-
 DOCKER := /usr/bin/docker 
 
-ENV_PATH := $(HOME)/envs/github/$(PROJECT)
+ENV_PATH := $(HOME)/envs/py/$(PROJECT)
 ENV_NAME := $(shell $(PYTHON) -c 'import sys;import socket;print(f"env_{socket.gethostname()}_{sys.platform}_{sys.version_info.major}.{sys.version_info.minor}")')
 
 ifeq ($(strip $(VIRTUAL_ENV)),)
@@ -25,13 +22,11 @@ else
 	PY := $(VIRTUAL_ENV)/bin/python
 endif
 
-
 SRC := pkg# just for this template
 # SRC := $(PROJECT)# for a python package
 DIST := dist
 BUILD := build
 API := api
-
 
 # PY_FILES = $(shell find $(SRC) -type f -name '*.py')
 PY_FILES := $(shell find $(SRC) -type f -name '*.py' | grep -v '^.*\/test_.*\.py$$')
@@ -192,9 +187,8 @@ type-prod:
 script-upgrade:
 		./scripts/upgrade_dependencies.sh
 
-
-set-dataset:
-		chmod -R a+rx dataset
+set-dataset-permissions:
+		chmod -R a-w dataset
 
 clean-commands: py.make api.make
 		head -n 5 py.make > temp.txt && mv temp.txt py.make
