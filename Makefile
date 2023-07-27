@@ -56,6 +56,9 @@ URL := $(PROTOCOL)://$(HOST):$(PORT)
 init:
 		./scripts/init  $(filter-out $@,$(MAKECMDGOALS))
 
+switch-env:
+	    sed -i 's/include .env.env/include $(filter-out $@,$(MAKECMDGOALS))/' Makefile
+
 cert: # HTTPS server
 		if [ ! -d "./certs" ]; then mkdir ./certs; fi
 		if [ -f "./certs/openssl.conf" ] ; then \
