@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# SLRUM job script
+
+echo "Job ID: $SLURM_JOB_ID"
+
+module purge
+module load Python/3.10.8-GCCcore-12.2.0
+
+DIRNAME="$(basename "$(pwd)")"
+
+cp -pR $PWD $PFSDIR/
+cd $PFSDIR/$DIRNAME
+
+make switch-env hpc
+make env-local
+make test
+make check
+make pia
+
+# Run Makefile targets
