@@ -1,5 +1,7 @@
 # https://www.gnu.org/software/make/manual/make.html
-include .env.dev
+ENV := dev # default, other options: test, prod
+
+include .env.$(ENV)
 export
 
 include *.make
@@ -8,10 +10,7 @@ WORKDIR := $(shell pwd)
 VERSION := $(shell cat VERSION)
 PROJECT := $(shell basename $(CURDIR))
 
-PYTHON := /usr/bin/python3
-DOCKER := /usr/bin/docker 
-
-ENV_PATH := $(HOME)/envs/py/$(PROJECT)
+ENV_PATH := $(ENV_PATH_ROOT)/$(PROJECT)
 ENV_NAME := $(shell $(PYTHON) -c 'import sys;import socket;print(f"env_{socket.gethostname()}_{sys.platform}_{sys.version_info.major}.{sys.version_info.minor}")')
 
 ifeq ($(strip $(VIRTUAL_ENV)),)
@@ -57,7 +56,7 @@ init:
 		./scripts/init  $(filter-out $@,$(MAKECMDGOALS))
 
 switch-env:
-	    sed -i 's/include .env.env/include $(filter-out $@,$(MAKECMDGOALS))/' Makefile
+		sed -i 's/ENV := dev/ENV := $(filter-out $@,$(MAKECMDGOALS))/' Makefile
 
 cert: # HTTPS server
 		if [ ! -d "./certs" ]; then mkdir ./certs; fi
