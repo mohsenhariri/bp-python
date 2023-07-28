@@ -1,5 +1,5 @@
 # https://www.gnu.org/software/make/manual/make.html
-ENV := dev # default, other options: test, prod
+ENV := hpc # default, other options: test, prod
 
 include .env.$(ENV)
 export
@@ -56,7 +56,7 @@ init:
 		./scripts/init  $(filter-out $@,$(MAKECMDGOALS))
 
 switch-env:
-		sed -i 's/ENV := dev/ENV := $(filter-out $@,$(MAKECMDGOALS))/' Makefile
+		sed -i 's/ENV := hpc/ENV := $(filter-out $@,$(MAKECMDGOALS))/' Makefile
 
 cert: # HTTPS server
 		if [ ! -d "./certs" ]; then mkdir ./certs; fi
