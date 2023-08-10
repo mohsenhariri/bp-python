@@ -14,7 +14,7 @@ change_name(){
     echo $new_name
 
     mv "$WORKDIR/pkg" "$WORKDIR/$new_name"
-
+    sed -i "s/^SRC := .*/SRC := "$new_name"/" "$WORKDIR/Makefile"
     sed -i "s/^name = .*/name = \"$new_name\"/" "$WORKDIR/pyproject.toml"
     sed -i "s/^SRC='.*/SRC='$new_name'/" "$WORKDIR/scripts/.githooks/pre-commit"
     sed -i "s/^files = .*/files = \"$new_name\"/" "$WORKDIR/.mypy.ini"
