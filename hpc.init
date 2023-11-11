@@ -22,8 +22,9 @@ make check
 # install all dependencies available in requirements.txt
 make pia
 # Run Makefile targets
-make run
+make hpc-run
 
 # install pytorch
 # make piu install torch torchvision --index-url https://download.pytorch.org/whl/cu117
-make gpu-test
+# make hpc-gpu-deps
+# make hpc-gpu-run

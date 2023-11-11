@@ -7,7 +7,7 @@ A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 
 1. Clone the repository
     ```bash
-    git clone git@github.com:mohsenhariri/template-python.git
+    git clone -b hpc git@github.com:mohsenhariri/template-python.git
     chmod -R u=rwx,go= template-python
     cd template-python
     ```
