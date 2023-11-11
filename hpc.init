@@ -19,12 +19,14 @@ make env-local
 make test
 make check
 
-# install all dependencies available in requirements.txt
-make pia
+## Install all dependencies available in requirements.txt
+# make pia
 # Run Makefile targets
-make hpc-run
+# make hpc-run
 
-# install pytorch
-# make piu install torch torchvision --index-url https://download.pytorch.org/whl/cu117
-# make hpc-gpu-deps
-# make hpc-gpu-run
+# Install dependencies 
+# make piu numpy matplotlib
+
+# Install dependencies for GPU
+make hpc-gpu-deps
+make hpc-gpu-run

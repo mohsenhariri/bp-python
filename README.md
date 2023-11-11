@@ -2,7 +2,18 @@
 
 A [simple] [general-purpose] Python template 🐍🚀🎉🦕
 
+## HPC Resource Allocation
 
+1. Start new tmux session
+    ```bash
+    tmux new -s <session-name>
+    ```
+
+2. Request interactive session
+   For example, to request 24 cores, 2 GPUs, and 32 GB memory:
+    ```bash
+    srun -A vxc204_aisc -p aisc -c 24 --gres=gpu:2 --mem=32G --pty bash
+    ```
 ## Run on HPC
 
 1. Clone the repository
