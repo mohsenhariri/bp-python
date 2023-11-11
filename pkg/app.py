@@ -1,4 +1,4 @@
 """
 DocString
 """
-print("main")
+print("Running on HPC")

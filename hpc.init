@@ -5,8 +5,9 @@
 echo "Job ID: $SLURM_JOB_ID"
 
 module purge
-module load Python/3.11.3-GCCcore-12.3.0
-module load CUDA/12.0.0
+
+module load Python/3.10.4-GCCcore-11.3.0
+module load cuDNN/8.4.1.50-CUDA-11.7.0
 
 DIRNAME="$(basename "$(pwd)")"
 
@@ -17,7 +18,12 @@ make switch-env hpc
 make env-local
 make test
 make check
-make pia
 
+# install all dependencies available in requirements.txt
+make pia
 # Run Makefile targets
 make run
+
+# install pytorch
+# make piu install torch torchvision --index-url https://download.pytorch.org/whl/cu117
+make gpu-test
