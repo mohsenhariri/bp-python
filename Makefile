@@ -13,6 +13,9 @@ PROJECT := $(shell basename $(CURDIR))
 ENV_PATH := $(ENV_PATH_ROOT)/$(PROJECT)
 ENV_NAME := $(shell $(PYTHON) -c 'import sys;import socket;print(f"env_{socket.gethostname()}_{sys.platform}_{sys.version_info.major}.{sys.version_info.minor}")')
 
+ENV_JUPYTER := $(ENV_PATH_ROOT)/jupyter
+JUPYTER_PORT := 3000
+
 ifeq ($(strip $(VIRTUAL_ENV)),)
 	PATH := $(ENV_PATH)/$(ENV_NAME)/bin:$(PATH)
     PY := $(ENV_PATH)/$(ENV_NAME)/bin/python
@@ -167,7 +170,6 @@ pkg-poetry-publish:
 lint:
 		ruff check $(SRC)
 
-
 pylint-dev:
 		pylint --rcfile .pylintrc.dev $(SRC)
 
@@ -178,7 +180,7 @@ format:
 		black $(SRC)
 
 sort:
-		isort $(SRC)
+		isort $(SRC) --profile black --skip $(SRC)/__init__.py
 		
 type:
 		mypy
@@ -200,4 +202,19 @@ gen-commands: clean-commands
 		$(foreach file,$(PY_FILES),$(shell echo "\n$(subst /,-,$(subst $(SRC)/,,$(basename $(file)))):\n\t\t$(PY) $(file)" >> py.make))
 		$(foreach file,$(PY_FILES_API),$(shell echo "\n$(subst /,-,$(subst $(API)/,,$(basename $(file)))):\n\t\t$(PY) $(file)" >> api.make))
 
+jupyter:
+		if [ ! -d $(ENV_JUPYTER) ] ; then \
+			$(PYTHON) -m venv $(ENV_JUPYTER); fi
+		$(ENV_JUPYTER)/bin/python -m pip install --upgrade jupyter
+		$(ENV_JUPYTER)/bin/jupyter notebook --no-browser --port=$(JUPYTER_PORT) --notebook-dir=$(WORKDIR) > ./logs/jupyter.log 2>&1 & echo $$! > ./logs/jupyter.pid
 
+jupyter-url:
+		@echo "Fetching Jupyter URL..."
+		@grep -oP "http://.*\?token=[a-z0-9]*" ./logs/jupyter.log || echo "URL not found in logs."
+
+stop-jupyter:
+		if [ -f ./logs/jupyter.pid ]; then \
+			kill `cat ./logs/jupyter.pid` && rm ./logs/jupyter.pid; \
+		else \
+			echo "No Jupyter PID file found."; \
+		fi
