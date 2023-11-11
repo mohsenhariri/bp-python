@@ -10,7 +10,9 @@ WORKDIR := $(shell pwd)
 VERSION := $(shell cat VERSION)
 PROJECT := $(shell basename $(CURDIR))
 
-ENV_PATH := $(ENV_PATH_ROOT)/$(PROJECT)
+# ENV_PATH := $(ENV_PATH_ROOT)$(PROJECT)
+ENV_PATH := $(ENV_PATH_ROOT)
+
 ENV_NAME := $(shell $(PYTHON) -c 'import sys;import socket;print(f"env_{socket.gethostname()}_{sys.platform}_{sys.version_info.major}.{sys.version_info.minor}")')
 
 ENV_JUPYTER := $(ENV_PATH_ROOT)/jupyter
@@ -18,7 +20,7 @@ JUPYTER_PORT := 3000
 
 ifeq ($(strip $(VIRTUAL_ENV)),)
 	PATH := $(ENV_PATH)/$(ENV_NAME)/bin:$(PATH)
-    PY := $(ENV_PATH)/$(ENV_NAME)/bin/python
+    PY := $(ENV_PATH)$(ENV_NAME)/bin/python
 else
 	PATH := $(VIRTUAL_ENV)/bin:$(PATH)
 	PY := $(VIRTUAL_ENV)/bin/python
