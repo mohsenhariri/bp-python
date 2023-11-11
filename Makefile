@@ -170,7 +170,6 @@ pkg-poetry-publish:
 lint:
 		ruff check $(SRC)
 
-
 pylint-dev:
 		pylint --rcfile .pylintrc.dev $(SRC)
 
@@ -181,7 +180,7 @@ format:
 		black $(SRC)
 
 sort:
-		isort $(SRC)
+		isort $(SRC) --profile black --skip $(SRC)/__init__.py
 		
 type:
 		mypy
