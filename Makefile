@@ -202,17 +202,27 @@ gen-commands: clean-commands
 		$(foreach file,$(PY_FILES),$(shell echo "\n$(subst /,-,$(subst $(SRC)/,,$(basename $(file)))):\n\t\t$(PY) $(file)" >> py.make))
 		$(foreach file,$(PY_FILES_API),$(shell echo "\n$(subst /,-,$(subst $(API)/,,$(basename $(file)))):\n\t\t$(PY) $(file)" >> api.make))
 
-jupyter:
+jupyter-global-start:
+		if [ ! -d "./logs" ] ; then \
+					mkdir -p ./logs; fi
 		if [ ! -d $(ENV_JUPYTER) ] ; then \
 			$(PYTHON) -m venv $(ENV_JUPYTER); fi
 		$(ENV_JUPYTER)/bin/python -m pip install --upgrade jupyter
 		$(ENV_JUPYTER)/bin/jupyter notebook --no-browser --port=$(JUPYTER_PORT) --notebook-dir=$(WORKDIR) > ./logs/jupyter.log 2>&1 & echo $$! > ./logs/jupyter.pid
 
+jupyter-local-start:
+		if [ ! -d "./logs" ] ; then \
+			mkdir -p ./logs; fi
+		if [ ! -d $(ENV_PATH) ] ; then \
+			$(PYTHON) -m venv $(ENV_PATH); fi
+		$(PY) -m pip install --upgrade jupyter
+		jupyter notebook --no-browser --port=$(JUPYTER_PORT) --notebook-dir=$(WORKDIR) > ./logs/jupyter.log 2>&1 & echo $$! > ./logs/jupyter.pid
+
 jupyter-url:
 		@echo "Fetching Jupyter URL..."
 		@grep -oP "http://.*\?token=[a-z0-9]*" ./logs/jupyter.log || echo "URL not found in logs."
 
-stop-jupyter:
+jupyter-stop:
 		if [ -f ./logs/jupyter.pid ]; then \
 			kill `cat ./logs/jupyter.pid` && rm ./logs/jupyter.pid; \
 		else \
