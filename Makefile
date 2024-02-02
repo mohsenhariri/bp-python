@@ -216,7 +216,7 @@ jupyter-local-start:
 		if [ ! -d $(ENV_PATH) ] ; then \
 			$(PYTHON) -m venv $(ENV_PATH); fi
 		$(PY) -m pip install --upgrade jupyter
-		jupyter notebook --no-browser --port=$(JUPYTER_PORT) --notebook-dir=$(WORKDIR) > ./logs/jupyter.log 2>&1 & echo $$! > ./logs/jupyter.pid
+		$(PY) -m jupyter notebook --no-browser --port=$(JUPYTER_PORT) --notebook-dir=$(WORKDIR) > ./logs/jupyter.log 2>&1 & echo $$! > ./logs/jupyter.pid
 
 jupyter-url:
 		@echo "Fetching Jupyter URL..."
@@ -228,3 +228,7 @@ jupyter-stop:
 		else \
 			echo "No Jupyter PID file found."; \
 		fi
+
+jupyter-voila:
+		$(PY) -m pip install voila
+		$(PY) -m voila --port=$(JUPYTER_PORT) --no-browser --notebook-dir=$(WORKDIR)
