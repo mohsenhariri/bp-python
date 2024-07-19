@@ -30,6 +30,13 @@ DIST := dist
 BUILD := build
 API := api
 
+check_defined = \
+    $(strip $(foreach 1,$1, \
+        $(call __check_defined,$1)))
+__check_defined = \
+    $(if $(value $1),, \
+        $(error Variable $1 is not defined))
+
 # PY_FILES = $(shell find $(SRC) -type f -name '*.py')
 PY_FILES := $(shell find $(SRC) -type f -name '*.py' | grep -v '^.*\/test_.*\.py$$')
 PY_FILES_TEST := $(shell find $(SRC) -type f -name 'test_*.py')
@@ -68,7 +75,9 @@ cert: # HTTPS server
 		openssl req -x509 -nodes -newkey rsa:4096 -out ./certs/cert.pem -keyout ./certs/key.pem -sha256 -days 365 ;fi
 
 clean:
-		rm -rf ./$(DIST)/* ./$(BUILD)/*
+		@$(call check_defined,DIST,BUILD) # if DIST or BUILD is not defined it shouldn't delte all files! ./{nothing!}/*
+		@if [ -d $(DIST) ]; then rm -rf $(DIST)/*; fi
+		@if [ -d $(BUILD) ]; then rm -rf $(BUILD)/*; fi
 
 clcache: 
 		rm -r ./__pycache__
