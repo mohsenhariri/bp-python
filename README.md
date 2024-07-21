@@ -18,7 +18,13 @@ I used this template for [fesenjoon](https://pypi.org/project/fesenjoon/) and [m
 
 ### Bootstrap
 
-To use env in another directory:
+Set a name for the package:
+
+```bash
+    make init newName
+```
+
+To use env in pool:
 
 ``` bash
     make env
@@ -35,13 +41,6 @@ To use env here (local directory)
 ``` bash
     source env_platform_ver/bin/activate
 ```
-
-Set a name for the package:
-
-```bash
-    make init newName
-```
-
 Check Python and pip version
 
 ``` bash
