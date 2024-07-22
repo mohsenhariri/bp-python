@@ -17,9 +17,14 @@ ENV_JUPYTER := $(ENV_PATH_ROOT)/jupyter
 JUPYTER_PORT := 3000
 
 ifeq ($(strip $(VIRTUAL_ENV)),)
-	PATH := $(ENV_PATH)/$(ENV_NAME)/bin:$(PATH)
-    PY := $(ENV_PATH)/$(ENV_NAME)/bin/python
-else
+	ifeq ($(strip $(CONDA_PREFIX)),)
+		PATH := $(ENV_PATH)/$(ENV_NAME)/bin:$(PATH)
+		PY := $(ENV_PATH)/$(ENV_NAME)/bin/python
+	else
+		PATH := $(CONDA_PREFIX)/bin:$(PATH)
+		PY := $(CONDA_PREFIX)/bin/python
+	endif
+else	
 	PATH := $(VIRTUAL_ENV)/bin:$(PATH)
 	PY := $(VIRTUAL_ENV)/bin/python
 endif
